@@ -5,19 +5,18 @@ function m3Or5(n) {
 }
 
 function sumMultiplesOfAandB(n, a, b) {
-
     let aMultiples = getMultiples(n, a);
     let bMultiples = getMultiples(n, b);
 
-    //r = a-b{dupes}
+    // r = a-b{dupes}
     let reduction = aMultiples.filter((number1) => {
-        return !bMultiples.some(function (number2) {
+        return !bMultiples.some(function(number2) {
             return number1 == number2;
         });
-    })
-    //m = r + b{nondupes}
+    });
+    // m = r + b{nondupes}
     let merged = reduction.concat(...bMultiples);
-    /*console.log(aMultiples);
+    /* console.log(aMultiples);
     console.log(bMultiples);
     console.log(merged);*/
     return merged.reduce((total, num) => {
@@ -33,12 +32,12 @@ function getMultiples(n, m) {
     }
     let startN = n - 1;
     let mod = startN % m;
-    
-    /*console.log('n: ', n);
+
+    /* console.log('n: ', n);
     console.log('startN: ', startN);
     console.log('mod: ', mod);
     console.log('m: ', m);*/
-    
+
     if (mod != 0) {
         startN -= mod;
     }
@@ -46,7 +45,7 @@ function getMultiples(n, m) {
         returnArr.push(startN);
         startN -= m;
     }
-    return returnArr
+    return returnArr;
 }
- 
+
 export { m3Or5 };

@@ -3,7 +3,7 @@ import assert from 'assert';
 import { isUnque, isUnqueOn2, isUnqueNLogN } from './index.js';
 
 describe('Test basic isUnique', function() {
-    it('should return not unique', function () {
+    it('should return not unique', function() {
         assert.equal(isUnque('hello'), false);
     });
     it('should return not unique', function() {

@@ -2,6 +2,15 @@
     "extends": ["eslint:recommended", "google"],
     "rules" : 
     {
+        "require-jsdoc": ["error", {
+            "require": {
+                "FunctionDeclaration": false,
+                "MethodDefinition": false,
+                "ClassDeclaration": false,
+                "ArrowFunctionExpression": false,
+                "FunctionExpression": false
+            }
+        }],
         "camelcase" : "error",
         "new-cap": ["error", { "capIsNew": true }],
         "object-curly-spacing": [2, "always"],

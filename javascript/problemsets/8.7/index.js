@@ -1,8 +1,7 @@
 
 function longestIncSubsecTable(arr) {
+    let table = Array(arr.length).fill().map(() => []);
 
-    let table = Array(arr.length).fill().map(() => Array());
-    
     for (let i = 0; i < arr.length; i++) {
         let curr = arr[i];
         table[i][0] = curr;
@@ -12,12 +11,11 @@ function longestIncSubsecTable(arr) {
                 table[i].push(arr[j]);
             }
         }
-    }    
+    }
     return table;
 }
 
 function longestIncSubsec(arr) {
-
     let table = longestIncSubsecTable(arr);
     let longestLen = 0;
     let longestLenIndex = 0;

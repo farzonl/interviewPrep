@@ -1,8 +1,9 @@
 
 /**
- * 
- * @param {Number} a 
- * @param {Number} b 
+ *
+ * @param {Number} a
+ * @param {Number} b
+ * @return {Number} returns the multiplication of a and b.
  */
 function rMultiply(a, b) {
     if (a == 0 || b == 0) {
@@ -11,7 +12,7 @@ function rMultiply(a, b) {
     if (a == 1) {
         return b;
     }
-    return b + rMultiply(a - 1, b); 
+    return b + rMultiply(a - 1, b);
 }
 
 export { rMultiply };

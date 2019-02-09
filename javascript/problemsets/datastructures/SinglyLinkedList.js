@@ -1,6 +1,5 @@
 
 class SinglyLinkedList {
-
     constructor() {
         this.head = null;
         this.count = 0;
@@ -18,17 +17,17 @@ class SinglyLinkedList {
     }
 
     /**
-     * @return {Array} 
+     * @return {Array}
      */
     toArray() {
         let curr = this.head;
         let returnArr = [];
         let currCount = 0;
-        while(curr != null) {
+        while (curr != null) {
             returnArr.push(curr.data);
             curr = curr.next;
             if (currCount > this.count) {
-                throw new Error("List is corupted");
+                throw new Error('List is corupted');
             }
             currCount++;
         }
@@ -49,7 +48,7 @@ class SinglyLinkedList {
         return curr;
     }
 
-    //2.5
+    // 2.5
     detectCycle() {
         let slowPtr = this.head;
         let fastPtr = this.head.next;
@@ -78,7 +77,6 @@ class SinglyLinkedList {
 }
 
 class Node {
-
     constructor(data) {
         this.data = data;
         this.next = null;
@@ -92,7 +90,8 @@ function guid() {
         .toString(16)
         .substring(1);
     }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-'
+        + s4() + '-' + s4() + s4() + s4();
   }
 
 export { SinglyLinkedList };

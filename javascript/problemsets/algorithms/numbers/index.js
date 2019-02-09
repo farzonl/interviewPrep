@@ -12,7 +12,7 @@ function gcd(a, b) {
     return gcd(a, b-a);
 }
 
-//least common multiple
+// least common multiple
 function lcm(a, b) {
     return a * b / gcd(a, b);
 }
@@ -37,12 +37,12 @@ function lcm2Helper(a, b, aCurr, bCurr) {
 function* multipleGenerator(a) {
     let i = a;
     yield i;
-    while(true) {
+    while (true) {
       i += a;
       yield i;
     }
   }
-  
+
 function lcm3(a, b) {
     if (a == 0 || b == 0) {
         return 0;
@@ -52,7 +52,7 @@ function lcm3(a, b) {
 
     let genAVal = genA.next().value;
     let genBVal = genB.next().value;
-    while (true) {
+    for (;;) {
         if (genAVal == genBVal) {
             return genAVal;
         }
@@ -62,13 +62,12 @@ function lcm3(a, b) {
             genAVal = genA.next().value;
         }
     }
-    
 }
 
 function lcm4(a, b) {
     let aCurr = a;
     let bCurr = b;
-    while (true) {
+    for (;;) {
         if (bCurr == 0 || aCurr == 0) {
             return 0;
         }
@@ -84,13 +83,12 @@ function lcm4(a, b) {
 }
 
 
-
-//https://projecteuler.net/problem=5
-function SmallestMultiple(num) {
+// https://projecteuler.net/problem=5
+function smallestMultiple(num) {
     let arr = [...Array(num+1).keys()];
     arr.shift();
 
-    /*let curr = 1;
+    /* let curr = 1;
     for (let i = 1; i <= 20; i++) {
         //console.log(`i:${i}`,curr);
         curr = lcm3(curr, i);
@@ -99,4 +97,4 @@ function SmallestMultiple(num) {
     return arr.reduce(lcm4);
 }
 
-export { gcd, lcm, lcm2, lcm3, lcm4, SmallestMultiple };
+export { gcd, lcm, lcm2, lcm3, lcm4, smallestMultiple };

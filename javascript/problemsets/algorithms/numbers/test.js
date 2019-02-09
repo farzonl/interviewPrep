@@ -1,20 +1,20 @@
 import 'babel-polyfill';
 import assert from 'assert';
-import { gcd, lcm, lcm2, lcm3, lcm4, SmallestMultiple } from './index.js'
+import { gcd, lcm, lcm2, lcm3, lcm4, smallestMultiple } from './index.js';
 
 
 describe('compute gcd', function() {
-    it('SmallestMultiple', function () {
-        assert.equal(232792560, SmallestMultiple(20));
+    it('smallestMultiple', function() {
+        assert.equal(232792560, smallestMultiple(20));
     });
-    it('gcd', function () {
+    it('gcd', function() {
         assert.equal(14, gcd(98, 56));
         // edge cases
         assert.equal(0, gcd(0, 0));
         assert.equal(0, gcd(0, 1));
         assert.equal(0, gcd(1, 0));
     });
-    it('lcm', function () {
+    it('lcm', function() {
         // 4 8 12 16 20
         // 10 20
         assert.equal(20, lcm(4, 10));

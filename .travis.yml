@@ -1,0 +1,24 @@
+matrix:
+  include:
+    - language: node_js
+      install:
+        - cd javascript
+        - npm install
+      script:
+        - npm test
+        - npm run lint
+    - language: java
+      jdk: oraclejdk8
+      before_script:
+        - cd java
+      script:
+        - gradle check --info
+      after_success:
+        - export CODECOV_TOKEN="59ec33f8-cdb9-4acd-876e-44aaedcc5033"
+        - bash <(curl -s https://codecov.io/bash)
+    - language: csharp
+      solution: problemsets.sln
+      before_script:
+        - cd c#
+      mono:
+        - 5.18

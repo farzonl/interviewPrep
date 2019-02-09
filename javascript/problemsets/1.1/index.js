@@ -17,10 +17,7 @@ function isUnque(str) {
     return true;
 }
 
-/**
- * 
- * @param {*} str 
- */
+
 function isUnqueOn2(str) {
     for (let i = 0; i < str.length; i++) {
         for (let j = 0; j < str.length; j++) {
@@ -45,6 +42,6 @@ function isUnqueNLogN(str) {
     return true;
 }
 
-//TODO bit vector solution 
+// TODO bit vector solution
 
 export { isUnque, isUnqueOn2, isUnqueNLogN };
