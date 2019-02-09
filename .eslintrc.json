@@ -1,0 +1,20 @@
+{
+    "extends": ["eslint:recommended", "google"],
+    "rules" : 
+    {
+        "camelcase" : "error",
+        "new-cap": ["error", { "capIsNew": true }],
+        "object-curly-spacing": [2, "always"],
+        "comma-dangle": ["error", "never"],
+        "no-console": ["error", { "allow": ["warn", "error"] }]
+    },
+    "env": {
+        "node": true,
+        "es6": true,
+        "jasmine":true
+    },
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module"
+    }
+}
