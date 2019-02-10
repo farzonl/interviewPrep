@@ -1,12 +1,19 @@
 matrix:
   include:
     - language: node_js
-      install:
+      node_js:
+        - "node"
+      before_script:
         - cd javascript
         - npm install
+      cache:
+        directories:
+          - "node_modules"
       script:
         - npm test
         - npm run lint
+      after_success:
+        bash <(curl -s https://codecov.io/bash)
     - language: java
       jdk: oraclejdk8
       before_script:
@@ -16,9 +23,10 @@ matrix:
       after_success:
         - export CODECOV_TOKEN="59ec33f8-cdb9-4acd-876e-44aaedcc5033"
         - bash <(curl -s https://codecov.io/bash)
-    - language: csharp
-      solution: problemsets.sln
-      before_script:
-        - cd c#
-      mono:
-        - 5.18
+      before_cache:
+        - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+        - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      cache:
+        directories:
+          - $HOME/.gradle/caches/
+          - $HOME/.gradle/wrapper/
