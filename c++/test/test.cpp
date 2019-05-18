@@ -5,6 +5,8 @@
 #include "ch1.hpp"
 #include "ch2.hpp"
 #include "ch3.hpp"
+#include "ch8.hpp"
+#include "ch16.hpp"
 
 
 TEST_CASE( "test stack template int push and pop" ) {
@@ -230,3 +232,38 @@ TEST_CASE( "test  3.2" ) {
     REQUIRE(ms.min() == 5);
     REQUIRE(ms.peek() == 5);
 } 
+
+TEST_CASE( "8.5 recursive multiply") {
+    REQUIRE(20 == ch8::iterativeMultiply(4,5));
+    REQUIRE(20 == ch8::recursiveMultiply(4,5));
+}
+
+TEST_CASE("16.6 smallest diff brute") {
+    int a[] = {1,3,15,11,2};         
+    int b[] = {23, 127, 235, 19, 8};
+    std::pair<int,int> p = ch16::smallestDiffBrute(a, sizeof(a)/sizeof(int), b, sizeof(b)/sizeof(int));
+    REQUIRE(p.first == 11);
+    REQUIRE(p.second == 8);
+}
+
+TEST_CASE("16.6 smallest diff sort") {
+    int a[] = {1,3,15,11,2};         // 1,  2,  3, 11 , 15
+    int b[] = {23, 127, 235, 19, 8}; // 8, 19, 23, 127, 235
+    std::pair<int,int> p = ch16::smallestDiffSort(a, sizeof(a)/sizeof(int), b, sizeof(b)/sizeof(int));
+    REQUIRE(p.first == 11);
+    REQUIRE(p.second == 8);
+
+    int a2[] = {1,3,15};
+    int b2[] = {20, 8}; 
+    std::pair<int,int> p2 = ch16::smallestDiffSort(a2, sizeof(a2)/sizeof(int), b2, sizeof(b2)/sizeof(int));
+    REQUIRE(p2.first == 3);
+    REQUIRE(p2.second == 8);
+}
+
+TEST_CASE("16.7 max no compare") {
+    REQUIRE(5 == ch16::maxNoCompare(5,4));
+    REQUIRE(5 == ch16::maxNoCompare(4,5));
+    REQUIRE(4 == ch16::maxNoCompare(4,-5));
+    REQUIRE(4 == ch16::maxNoCompare(-5,4));
+}
+

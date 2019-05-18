@@ -4,6 +4,7 @@ struct TreeNode
     TreeNode* left;
     TreeNode* right;
     TreeNode(int data);
+    ~TreeNode();
     void add(TreeNode* parent, int data);
     void add(int data);
     void remove(int data);

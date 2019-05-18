@@ -2,7 +2,7 @@
 #_____________STATIC STUFF__________________________________________
 OPTIONS := -std=c++11 -Wall
 INCPATH := -I test/include -I datastructures/include -I include
-FILES := test/test.cpp src/*.cpp
+FILES := test/test.o $(shell echo src/*.cpp  | sed -e 's/cpp/o/g')
 UNAME := $(shell uname)
 EXE   := $(UNAME)_test
 #_____________STATIC STUFF__________________________________________
@@ -24,6 +24,9 @@ run-valgrind : build-debug
 
 build-release : CFLAGS += -O3
 build-release : $(EXE)
+
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS)
 
 $(EXE) : $(FILES)
 	$(CC) $^ -o $(EXE) $(CFLAGS)

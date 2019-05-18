@@ -6,6 +6,10 @@
     left(nullptr), 
     right(nullptr) {}
     
+    TreeNode::~TreeNode() {
+        // TODO
+    }
+
     void TreeNode::add(TreeNode* parent, int data)
     {
         if(parent == nullptr)
@@ -45,7 +49,7 @@
     }
     void TreeNode::remove(int data)
     {
-
+        //TODO
     }
 
 void TreeNode::preorder()

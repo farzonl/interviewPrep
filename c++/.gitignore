@@ -1,0 +1,4 @@
+Darwin_*
+Linux_*
+Windows_*
+*.o
