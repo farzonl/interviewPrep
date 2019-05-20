@@ -315,7 +315,7 @@ TEST_CASE("16.4 tictactoe") {
     REQUIRE(TTPIECE::X == tb.get(1,1));
     REQUIRE(TTPIECE::X == tb.get(2,2));
     REQUIRE(true == ch16::isWinningBoard(tb));
-    tb.place(2,2,TTPIECE::EMPTY);
+    tb.place(2,2,TTPIECE::O);
     tb.place(2,1,TTPIECE::O);
     REQUIRE(false == ch16::isWinningBoard(tb));
     tb.place(2,0,TTPIECE::O);
@@ -323,6 +323,45 @@ TEST_CASE("16.4 tictactoe") {
     REQUIRE(TTPIECE::O == tb.get(2,1));
     REQUIRE(TTPIECE::O == tb.get(2,0));
     REQUIRE(true == ch16::isWinningBoard(tb));
+    
+    // Vertical tests
+    TicTacToeBoard tb2;
+    tb2.place(0,0,TTPIECE::O);
+    tb2.place(0,1,TTPIECE::O);
+    tb2.place(0,2,TTPIECE::O);
+    REQUIRE(true == ch16::isWinningBoard(tb2));
+    tb2.place(0,0,TTPIECE::EMPTY);
+    REQUIRE(false == ch16::isWinningBoard(tb2));
+    tb2.place(1,0,TTPIECE::X);
+    tb2.place(1,1,TTPIECE::X);
+    tb2.place(1,2,TTPIECE::X);
+    REQUIRE(true == ch16::isWinningBoard(tb2));
+    tb2.place(1,2,TTPIECE::EMPTY);
+    REQUIRE(false == ch16::isWinningBoard(tb2));
+    tb2.place(2,0,TTPIECE::X);
+    tb2.place(2,1,TTPIECE::X);
+    tb2.place(2,2,TTPIECE::X);
+    REQUIRE(true == ch16::isWinningBoard(tb2));
+
+    // Horizontal tests
+    TicTacToeBoard tb3;
+    tb3.place(0,0,TTPIECE::O);
+    tb3.place(1,0,TTPIECE::O);
+    tb3.place(2,0,TTPIECE::O);
+    REQUIRE(true == ch16::isWinningBoard(tb3));
+    tb3.place(0,0,TTPIECE::EMPTY);
+    REQUIRE(false == ch16::isWinningBoard(tb3));
+    tb3.place(0,1,TTPIECE::X);
+    tb3.place(1,1,TTPIECE::X);
+    tb3.place(2,1,TTPIECE::X);
+    REQUIRE(true == ch16::isWinningBoard(tb3));
+    tb3.place(2,1,TTPIECE::EMPTY);
+    REQUIRE(false == ch16::isWinningBoard(tb3));
+    tb3.place(0,2,TTPIECE::X);
+    tb3.place(1,2,TTPIECE::X);
+    tb3.place(2,2,TTPIECE::X);
+    REQUIRE(true == ch16::isWinningBoard(tb3));
+
 }
 
 TEST_CASE("16.6 smallest diff brute") {

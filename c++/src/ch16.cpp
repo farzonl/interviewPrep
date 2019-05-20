@@ -164,16 +164,24 @@ bool ch16::isWinningBoard(TicTacToeBoard &tb) {
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
             int curr = (int) tb.get(i,j);
-            if ( ( curr & (int) tb.get(i-1,j-1) ) & ( curr & (int) tb.get(i+1,j+1) ) ) {
+            if ( ( curr & (int) tb.get(i-1,j-1) ) && ( curr & (int) tb.get(i+1,j+1) ) ) {
+                //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
+                //std::cout << "case 1" << std::endl;
                 return true;
             }
-            if ( ( curr & (int) tb.get(i+1,j+1) ) & ( curr & (int) tb.get(i+1,j+1) ) ) {
+            if ( ( curr & (int) tb.get(i+1,j-1) ) && ( curr & (int) tb.get(i-1,j+1) ) ) {
+                //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
+                //std::cout << "case 2" << std::endl;
                 return true;
             }
-            if( ( curr & (int) tb.get(i-1,j) ) & ( curr & (int) tb.get(i+1,j) ) ) {
+            if( ( curr & (int) tb.get(i-1,j) ) && ( curr & (int) tb.get(i+1,j) ) ) {
+                //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
+                //std::cout << "case 3" << std::endl;
                 return true;
             }
-            if( ( curr & (int) tb.get(i,j-1) ) & ( curr & (int) tb.get(i,j+1) ) ) {
+            if( ( curr & (int) tb.get(i,j-1) ) && ( curr & (int) tb.get(i,j+1) ) ) {
+                //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
+                //std::cout << "case 4" << std::endl;
                 return true;
             }
         }
