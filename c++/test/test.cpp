@@ -276,14 +276,53 @@ TEST_CASE("16.3 intersection") {
     Vec2 A(1.0, 1.0); Vec2 B(4.0, 4.0);
     Vec2 C(1.0, 8.0); Vec2 D(2.0, 4.0);
     Line l1(A,B); Line l2(C,D);
-    REQUIRE(true == l1.isIntersected(l2));
+    Vec2 out;
+    REQUIRE(true == l1.isIntersected(l2,out));
+    REQUIRE(out.x == 2.4);
+    REQUIRE(out.y == 2.4);
+}
+
+TEST_CASE("16.3 intersection 2") {
+    Vec2 A(0.0, 0.0); Vec2 B(2.0, 2.0);
+    Vec2 C(2.0,0.0); Vec2 D(0.0, 2.0);
+    Line l1(A,B); Line l2(C,D);
+    Vec2 out;
+    REQUIRE(true == l1.isIntersected(l2,out));
+    REQUIRE(out.x == 1.0);
+    REQUIRE(out.y == 1.0);
 }
 
 TEST_CASE("16.3 intersection parallel") {
     Vec2 A(0.0, 1.0); Vec2 B(0.0, 4.0);
     Vec2 C(1.0, 8.0); Vec2 D(1.0, 4.0);
     Line l1(A,B); Line l2(C,D);
-    REQUIRE(false == l1.isIntersected(l2));
+    Vec2 out;
+    REQUIRE(false == l1.isIntersected(l2, out));
+}
+
+TEST_CASE("16.4 tictactoe") {
+    TicTacToeBoard tb;
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            REQUIRE(0 == tb.board[i][j]);
+        }
+    }
+    tb.place(0,0,TTPIECE::X);
+    tb.place(1,1,TTPIECE::X);
+    tb.place(2,2,TTPIECE::X);
+    REQUIRE(TTPIECE::EMPTY == tb.get(0,1));
+    REQUIRE(TTPIECE::X == tb.get(0,0));
+    REQUIRE(TTPIECE::X == tb.get(1,1));
+    REQUIRE(TTPIECE::X == tb.get(2,2));
+    REQUIRE(true == ch16::isWinningBoard(tb));
+    tb.place(2,2,TTPIECE::EMPTY);
+    tb.place(2,1,TTPIECE::O);
+    REQUIRE(false == ch16::isWinningBoard(tb));
+    tb.place(2,0,TTPIECE::O);
+    REQUIRE(TTPIECE::O == tb.get(2,2));
+    REQUIRE(TTPIECE::O == tb.get(2,1));
+    REQUIRE(TTPIECE::O == tb.get(2,0));
+    REQUIRE(true == ch16::isWinningBoard(tb));
 }
 
 TEST_CASE("16.6 smallest diff brute") {

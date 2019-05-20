@@ -7,34 +7,57 @@
 #include <locale>
 #include <stdio.h>
 
+TicTacToeBoard::TicTacToeBoard() {
+    memset(this->board, 0, sizeof(this->board[0][0]) * 9); // 3 * 3
+}
+
+void TicTacToeBoard::place(int i, int j, TTPIECE p) {
+    this->board[i][j] = (int) p;
+}
+
+TTPIECE TicTacToeBoard::get(int i , int j) {
+    if(i < 0 || j < 0 || i >= 3 || j >= 3) {
+        return TTPIECE::EMPTY;
+    }
+    return (TTPIECE) this->board[i][j];
+}
+
 Vec2::Vec2(double x1, double y1) : x(x1), y(y1) {
 }
 
-float Vec2::cross(const Vec2 &b){ 
+float Vec2::cross(const Vec2 &b){ // det product
     return this->x * b.y - this->y * b.x;
 }
 
+float Vec2::cross(const Vec2 &a, const Vec2 &b){ // det product
+    return a.x * b.y - a.y * b.x;
+}
+
 Line::Line(const Vec2 &a, const Vec2 &b): a(a), b(b) { 
-    this->slope = (b.y - a.y) / (b.x - a.x); // need y = mx + b
-    // y- y1 = m(x-x1) -> y =mx + -mx1+y1 (start with point slope form)
-    this->yIntercept = (-this->slope * a.x) +b.y;
+    // y-y1 = m(x-x1) -> y = mx + mx1+y1
+    // a1x + b1y = c1 (eqn1) y = (-a1x + c1) / b1 -> y = -a1/b1(x) + c1/b1 (slope = -a1/b1) (y-intercept = c1/b1)
+    // a2x + b2y = c2 (eqn2)
+    // a1b2x + b1b2y = c1b2 (multiply eqn1 by b2)
+    // a2b1x + b2b1y = c2b1 (multiply eqn2 by b1)
+    // (a1b2 – a2b1) x = c1b2 – c2b1 (subtract eqn1 - eqn2)
+    this->A = b.y - a.y; 
+    this->B = a.x - b.x; 
+    this->C = A*(a.x) + B*(a.y);
 }
 
 
-bool Line::isIntersected(Line &l) {
-     // this->m * x + this->b == l.m (x) + l.b
-     // x(this->m-l.m)  == (l.b-this->b) -->
-     // x == (l.b-this->b)/(this->m-l.m)
-     double dSlope = (this->slope - l.slope);
-     
-     if(b.x - a.x == 0 || l.b.x - l.a.x == 0 || dSlope == 0) {
-        return false;
-     }
+bool Line::isIntersected(Line &l, Vec2& out) {    
+    Vec2 a(this->A,l.A);
+    Vec2 b(this->B,l.B);
+    double determinant = a.cross(b);
 
-     double x = (l.yIntercept - this->yIntercept) / dSlope;
-     double y = (this->slope * x) + this->yIntercept; //y = mx+b
-     std::cout << "(x: " << x << ", y: " << y << ")" << std::endl;
-     return true;
+    if (determinant == 0) {
+        return false;
+    }
+    out.x = (l.B*C - B*l.C)/determinant; 
+    out.y = (A*l.C - l.A*C)/determinant;
+    //std::cout << "(x: " << out.x << ", y: " << out.y << " )" << std::endl;
+    return true;
 }
 
 std::string toLowerCase(std::string &word) {
@@ -135,6 +158,27 @@ std::pair<int,int> ch16::smallestDiffBrute(int *a, int aLen, int *b, int bLen) {
         }
     }
     return std::make_pair(aVal,bVal);
+}
+
+bool ch16::isWinningBoard(TicTacToeBoard &tb) {
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            int curr = (int) tb.get(i,j);
+            if ( ( curr & (int) tb.get(i-1,j-1) ) & ( curr & (int) tb.get(i+1,j+1) ) ) {
+                return true;
+            }
+            if ( ( curr & (int) tb.get(i+1,j+1) ) & ( curr & (int) tb.get(i+1,j+1) ) ) {
+                return true;
+            }
+            if( ( curr & (int) tb.get(i-1,j) ) & ( curr & (int) tb.get(i+1,j) ) ) {
+                return true;
+            }
+            if( ( curr & (int) tb.get(i,j-1) ) & ( curr & (int) tb.get(i,j+1) ) ) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 std::pair<int, int> ch16::smallestDiffSort(int *a, int aLen, int *b, int bLen) {
