@@ -237,6 +237,54 @@ TEST_CASE( "8.5 recursive multiply") {
     REQUIRE(20 == ch8::iterativeMultiply(4,5));
     REQUIRE(20 == ch8::recursiveMultiply(4,5));
 }
+TEST_CASE("16.1 swap no temp") {
+    int a = 6;
+    int b = 15;
+    ch16::swapNoTemp(a, b);
+    REQUIRE(b == 6);
+    REQUIRE(a == 15);
+    int c = 6;
+    ch16::swapNoTemp(b, c);
+    REQUIRE(b == 6);
+    REQUIRE(c == 6);
+}
+
+TEST_CASE("16.1 swap by subtraction") {
+    int a = 6;
+    int b = 15;
+    ch16::swapSub(a, b);
+    REQUIRE(b == 6);
+    REQUIRE(a == 15);
+    int c = 6;
+    ch16::swapSub(b, c);
+    REQUIRE(b == 6);
+    REQUIRE(c == 6);
+}
+
+TEST_CASE("16.2 Word Freq") {
+    wordFreq wf("It was the best of times, it was the worst of times.");
+    REQUIRE(wf.getFreq("it") == 2);
+    REQUIRE(wf.getFreq("was") == 2);
+    REQUIRE(wf.getFreq("the") == 2);
+    REQUIRE(wf.getFreq("best") == 1);
+    REQUIRE(wf.getFreq("times") == 2);
+    REQUIRE(wf.getFreq("worst") == 1);
+    REQUIRE(wf.getFreq("ball") == 0);
+}
+
+TEST_CASE("16.3 intersection") {
+    Vec2 A(1.0, 1.0); Vec2 B(4.0, 4.0);
+    Vec2 C(1.0, 8.0); Vec2 D(2.0, 4.0);
+    Line l1(A,B); Line l2(C,D);
+    REQUIRE(true == l1.isIntersected(l2));
+}
+
+TEST_CASE("16.3 intersection parallel") {
+    Vec2 A(0.0, 1.0); Vec2 B(0.0, 4.0);
+    Vec2 C(1.0, 8.0); Vec2 D(1.0, 4.0);
+    Line l1(A,B); Line l2(C,D);
+    REQUIRE(false == l1.isIntersected(l2));
+}
 
 TEST_CASE("16.6 smallest diff brute") {
     int a[] = {1,3,15,11,2};         
@@ -266,4 +314,3 @@ TEST_CASE("16.7 max no compare") {
     REQUIRE(4 == ch16::maxNoCompare(4,-5));
     REQUIRE(4 == ch16::maxNoCompare(-5,4));
 }
-

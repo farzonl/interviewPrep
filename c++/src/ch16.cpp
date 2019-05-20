@@ -1,14 +1,108 @@
 #include "ch16.hpp"
 #include <iostream>
+#include <sstream> 
 #include <vector>
 #include <algorithm>
 #include <iterator>
+#include <locale>
+#include <stdio.h>
+
+Vec2::Vec2(double x1, double y1) : x(x1), y(y1) {
+}
+
+float Vec2::cross(const Vec2 &b){ 
+    return this->x * b.y - this->y * b.x;
+}
+
+Line::Line(const Vec2 &a, const Vec2 &b): a(a), b(b) { 
+    this->slope = (b.y - a.y) / (b.x - a.x); // need y = mx + b
+    // y- y1 = m(x-x1) -> y =mx + -mx1+y1 (start with point slope form)
+    this->yIntercept = (-this->slope * a.x) +b.y;
+}
+
+
+bool Line::isIntersected(Line &l) {
+     // this->m * x + this->b == l.m (x) + l.b
+     // x(this->m-l.m)  == (l.b-this->b) -->
+     // x == (l.b-this->b)/(this->m-l.m)
+     double dSlope = (this->slope - l.slope);
+     
+     if(b.x - a.x == 0 || l.b.x - l.a.x == 0 || dSlope == 0) {
+        return false;
+     }
+
+     double x = (l.yIntercept - this->yIntercept) / dSlope;
+     double y = (this->slope * x) + this->yIntercept; //y = mx+b
+     std::cout << "(x: " << x << ", y: " << y << ")" << std::endl;
+     return true;
+}
+
+std::string toLowerCase(std::string &word) {
+    std::locale loc;
+    std::stringstream str_stream;
+    for(int i = 0; i < word.length();i++) {
+        str_stream << std::tolower(word[i], loc);
+    }
+    return str_stream.str();
+}
+
+wordFreq::wordFreq(std::string book) {
+    auto split = [](std::string str) {
+        std::vector<std::string> words;
+        char * pch = strtok (const_cast<char*>(str.c_str())," ,.");
+        while (pch != nullptr) {
+            words.push_back(std::string(pch));
+            pch = strtok (NULL, " ,.");
+        }
+        return words;
+    };
+     std::vector<std::string> words = split(book);
+     std::map<std::string,int>::iterator it;
+     
+     for(int i = 0; i < words.size(); i++) {
+         std::string currWord = toLowerCase(words[i]);
+          it = freq.find(currWord);
+          if (it != freq.end()) {
+              freq[currWord]++;
+          } else {
+               freq[currWord] = 1;
+          }
+     }
+}
+
+int wordFreq::getFreq(std::string word) {
+    std::map<std::string,int>::iterator it = freq.find(word);
+    if (it == freq.end()) {
+        return 0;
+    }
+    return it->second;
+}
 
 void print(std::vector<int> const &input)
 {
 	std::copy(input.begin(),
 			input.end(),
 			std::ostream_iterator<int>(std::cout, " "));
+}
+
+
+
+void ch16::swapNoTemp(int &a, int &b) {
+    if(a == b) {
+        return;
+    }
+    a ^= b;
+    b ^= a;
+    a ^= b;
+}
+
+void ch16::swapSub(int &a, int &b) {
+    // 3 - 6   : -3
+    // -3 + 6   : 3
+    // 3 - (-3) : 6
+    a -= b;
+    b += a;
+    a = b - a;
 }
 
 int ch16::maxNoCompare(int a, int b) { //TODO how to solve overflow?
