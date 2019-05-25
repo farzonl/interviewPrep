@@ -243,11 +243,41 @@ TEST_CASE("5.6 conversion") {
     REQUIRE(2 == ch5::conversion(29, 15));
     REQUIRE(3 == ch5::conversion(25, 23)); // 11001, 10111
 }
+TEST_CASE("8.3 magic index") {
+    int arr[] = {-1, 0, 1, 2, 3, 4, 6}; // arr2[midpoint] < midpoint --> go right
+             //   0  1  2  3  4  5  6
+    int arr2[] = {0, 2, 3, 4, 5, 6, 7}; // arr2[midpoint] > midpoint --> go left
+             //   0  1  2  3  4  5  6
+    REQUIRE( 6 == ch8::magicNumberBrute(arr, sizeof(arr)/sizeof(int)));
+    REQUIRE( 0 == ch8::magicNumberBrute(arr2, sizeof(arr2)/sizeof(int)));
+
+    REQUIRE( 6 == ch8::magicNumber(arr, sizeof(arr)/sizeof(int)));
+    REQUIRE( 0 == ch8::magicNumber(arr2, sizeof(arr2)/sizeof(int)));
+}
+TEST_CASE("8.4 power set") {
+    std::vector<char> vec({'A','B','C','D'});
+
+    std::vector<std::vector<char>> sets( {std::vector<char>({'A'}), std::vector<char>({'A','B'}), 
+                                         std::vector<char>({'A','B','C'}), std::vector<char>({'A','B','C','D'}),
+                                         std::vector<char>({'B'}), std::vector<char>({'B','C'}), 
+                                         std::vector<char>({'B','C','D'}), std::vector<char>({'C'}), 
+                                         std::vector<char>({'C','D'}), std::vector<char>({'D'}) });
+
+    std::vector<std::vector<char>>  subsets = ch8::subset(vec);
+    REQUIRE(sets.size() == subsets.size());
+    for(int i = 0; i < sets.size(); i++) {
+        REQUIRE(sets[i].size() == subsets[i].size());
+        for(int j = 0; j < sets[i].size(); j++) {
+             REQUIRE(sets[i][j] == subsets[i][j]);
+        }
+    }
+}
 
 TEST_CASE( "8.5 recursive multiply") {
     REQUIRE(20 == ch8::iterativeMultiply(4,5));
     REQUIRE(20 == ch8::recursiveMultiply(4,5));
 }
+
 TEST_CASE("16.1 swap no temp") {
     int a = 6;
     int b = 15;
