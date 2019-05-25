@@ -41,6 +41,13 @@ class Line {
         int A,B,C;
 };
 
+class Operations {
+    public:
+        static int multiply(int a, int b);
+        static int divide(int a, int b);
+        static int subtract(int a, int b);
+};
+
 class ch16 {
     public:
         static void swapNoTemp(int &a, int &b);

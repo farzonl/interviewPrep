@@ -7,6 +7,48 @@
 #include <locale>
 #include <stdio.h>
 
+int Operations::multiply(int a, int b) {
+    int total = 0;
+    if(a > 0) {
+        for(int i = 0; i < a; i++) {
+            total += b;
+        }
+    } else {
+        for(int i = a; i < 0; i++) {
+            total = subtract(total, b);
+        }
+    }
+    return total;
+}
+
+int Operations::divide(int a, int b) {
+    int total = std::abs(a);
+    int count = 0;
+
+    while(total > 0) {
+        total = subtract(total,std::abs(b));
+        if(total >= 0) {
+            count++;
+        }
+    }
+    int sign = a > 0 ? 1 : -1;
+    int sign2 = b > 0 ? 1 : -1;
+    return multiply(sign2, multiply(sign,count));
+}
+
+int Operations::subtract(int a, int b) {
+    auto negate = [](int a) {
+        int sign = a > 0 ? 1 : -1;
+        int negation = 0;
+        while( a != 0 ) {
+            a += sign;
+            negation += sign;
+        }
+        return negation;
+    };
+    return a + negate(b);
+}
+
 TicTacToeBoard::TicTacToeBoard() {
     memset(this->board, 0, sizeof(this->board[0][0]) * 9); // 3 * 3
 }

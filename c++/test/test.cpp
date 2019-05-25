@@ -5,6 +5,7 @@
 #include "ch1.hpp"
 #include "ch2.hpp"
 #include "ch3.hpp"
+#include "ch5.hpp"
 #include "ch8.hpp"
 #include "ch16.hpp"
 
@@ -233,6 +234,16 @@ TEST_CASE( "test  3.2" ) {
     REQUIRE(ms.peek() == 5);
 } 
 
+TEST_CASE("5.1 insertion") {
+    REQUIRE(1100  == ch5::insertion(1024, 19, 2, 6));
+    REQUIRE(540   == ch5::insertion(512, 7, 2, 5));
+}
+
+TEST_CASE("5.6 conversion") {
+    REQUIRE(2 == ch5::conversion(29, 15));
+    REQUIRE(3 == ch5::conversion(25, 23)); // 11001, 10111
+}
+
 TEST_CASE( "8.5 recursive multiply") {
     REQUIRE(20 == ch8::iterativeMultiply(4,5));
     REQUIRE(20 == ch8::recursiveMultiply(4,5));
@@ -391,4 +402,25 @@ TEST_CASE("16.7 max no compare") {
     REQUIRE(5 == ch16::maxNoCompare(4,5));
     REQUIRE(4 == ch16::maxNoCompare(4,-5));
     REQUIRE(4 == ch16::maxNoCompare(-5,4));
+}
+
+TEST_CASE("16.9 subtract with add") {
+    REQUIRE( 6 == Operations::subtract(11,5));
+    REQUIRE(-6 == Operations::subtract(-1,5));
+    REQUIRE(-1 == Operations::subtract(4,5)); 
+}
+
+TEST_CASE("16.9 multiply with add") {
+    REQUIRE( 30 == Operations::multiply(6,5));
+    REQUIRE(-5 == Operations::multiply(-1,5));
+    REQUIRE(-20 == Operations::multiply(4,-5)); 
+}
+
+TEST_CASE("16.9 divide with add") {
+    REQUIRE( 2 == Operations::divide(10,5)); 
+    REQUIRE( 3 == Operations::divide(9,3)); 
+    REQUIRE( 0 == Operations::divide(4,5)); 
+    REQUIRE(-1 == Operations::divide(-5,5)); 
+    REQUIRE(-1 == Operations::divide(5,-5)); 
+    REQUIRE( 1 == Operations::divide(-5,-5)); 
 }
