@@ -1,5 +1,12 @@
 matrix:
   include:
+    - language: cpp
+      os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      sudo: required
+      script:
+       - make -C c++/
     - language: node_js
       node_js:
         - "node"
