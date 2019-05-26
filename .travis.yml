@@ -1,5 +1,10 @@
 matrix:
   include:
+    - language: csharp
+      mono: none
+      dotnet: 2.2.106
+      script:
+      - dotnet test c#/
     - language: cpp
       os: osx
       osx_image: xcode8.3
