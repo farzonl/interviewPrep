@@ -248,12 +248,19 @@ TEST_CASE("8.3 magic index") {
              //   0  1  2  3  4  5  6
     int arr2[] = {0, 2, 3, 4, 5, 6, 7}; // arr2[midpoint] > midpoint --> go left
              //   0  1  2  3  4  5  6
+    
+    int arr3[] = {1, 3, 4, 5, 5, 6, 6};
+             //   0  1  2  3  4  5  6
+
     REQUIRE( 6 == ch8::magicNumberBrute(arr, sizeof(arr)/sizeof(int)));
     REQUIRE( 0 == ch8::magicNumberBrute(arr2, sizeof(arr2)/sizeof(int)));
+    REQUIRE( 6 == ch8::magicNumberBrute(arr3, sizeof(arr3)/sizeof(int)));
 
+    // limitation no duplicates
     REQUIRE( 6 == ch8::magicNumber(arr, sizeof(arr)/sizeof(int)));
     REQUIRE( 0 == ch8::magicNumber(arr2, sizeof(arr2)/sizeof(int)));
 }
+
 TEST_CASE("8.4 power set") {
     std::vector<char> vec({'A','B','C','D'});
 
