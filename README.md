@@ -4,6 +4,8 @@
 ## Dependencies
 - node.js
 - java
+- dotnet core
+- clang
 
 ## Code status
 [![codecov](https://codecov.io/gh/farzonl/interviewPrep/branch/master/graph/badge.svg)](https://codecov.io/gh/farzonl/interviewPrep)

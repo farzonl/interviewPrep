@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using datastructures;
+using System;
 namespace Tests
 {
     public class ListTests
@@ -151,6 +152,110 @@ namespace Tests
                 curr = curr.next;
             }
             
+        }
+        [Test]
+        public void TestDeleteEmpty() {
+            DoublyLinkedList<int> dl = new DoublyLinkedList<int>();
+            dl.delete(dl.head);
+            Assert.AreEqual(0, dl.Size); // make sure size does not become negative
+            DNode<int> temp = new DNode<int>(1);
+            dl.delete(temp);
+            Assert.AreEqual(0, dl.Size); // make sure size does not become negative
+        }
+
+        [Test]
+        public void TestDeleteHead() {
+            DoublyLinkedList<int> dl = new DoublyLinkedList<int>();
+            for(int ii = 5; ii > 0;ii--) {
+                dl.addToFront(ii);
+            }
+            int[] arr = new int[] {2, 3, 4, 5};
+            dl.delete(dl.head);
+            DNode<int> curr = dl.head;
+            for(int i = 0; i < arr.Length;i++) {
+                Console.WriteLine("data: " + curr.data);
+                Assert.AreEqual(arr[i], curr.data);
+                if(i > 0) {
+                    Assert.AreEqual(arr[i-1], curr.prev.data);
+                }
+                if(i < dl.Size-1) {
+                    Assert.AreEqual(arr[i+1], curr.next.data);
+                }
+                curr = curr.next;
+            }
+        }
+        [Test]
+        public void TestDeleteAfterHead() {
+            DoublyLinkedList<int> dl = new DoublyLinkedList<int>();
+            for(int ii = 5; ii > 0;ii--) {
+                dl.addToFront(ii);
+            }
+            int[] arr = new int[] {1,3,4,5};
+            DNode<int> curr = dl.head.next;
+            dl.delete(curr);
+            curr = dl.head;
+            for(int i = 0; i < arr.Length;i++) {
+                Console.WriteLine("data: " + curr.data);
+                Assert.AreEqual(arr[i], curr.data);
+                if(i > 0) {
+                    Assert.AreEqual(arr[i-1], curr.prev.data);
+                }
+                if(i < dl.Size-1) {
+                    Assert.AreEqual(arr[i+1], curr.next.data);
+                }
+                curr = curr.next;
+            }
+        }
+
+        [Test]
+        public void TestDeleteMiddle() {
+            DoublyLinkedList<int> dl = new DoublyLinkedList<int>();
+            for(int ii = 5; ii > 0;ii--) {
+                dl.addToFront(ii);
+            }
+            int[] arr = new int[] {1,2,4,5};
+            DNode<int> curr = dl.head;
+            for(int i = 0; i < 2;i++) {
+                curr = curr.next;
+            }
+            dl.delete(curr);
+            curr = dl.head;
+            for(int i = 0; i < arr.Length;i++) {
+                Console.WriteLine("data: " + curr.data);
+                Assert.AreEqual(arr[i], curr.data);
+                if(i > 0) {
+                    Assert.AreEqual(arr[i-1], curr.prev.data);
+                }
+                if(i < dl.Size-1) {
+                    Assert.AreEqual(arr[i+1], curr.next.data);
+                }
+                curr = curr.next;
+            }
+        }
+        [Test]
+        public void TestDeleteEnd() {
+            DoublyLinkedList<int> dl = new DoublyLinkedList<int>();
+            for(int ii = 5; ii > 0;ii--) {
+                dl.addToFront(ii);
+            }
+            int[] arr = new int[] {1,2,3,4};
+            DNode<int> curr = dl.head;
+            while(curr.next != null) {
+                curr = curr.next;
+            }
+            dl.delete(curr);
+            curr = dl.head;
+            for(int i = 0; i < arr.Length;i++) {
+                Console.WriteLine("data: " + curr.data);
+                Assert.AreEqual(arr[i], curr.data);
+                if(i > 0) {
+                    Assert.AreEqual(arr[i-1], curr.prev.data);
+                }
+                if(i < dl.Size-1) {
+                    Assert.AreEqual(arr[i+1], curr.next.data);
+                }
+                curr = curr.next;
+            }
         }
     }
 }

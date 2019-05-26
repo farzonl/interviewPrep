@@ -41,7 +41,25 @@ namespace datastructures
             head = temp;
             Size++;
         }
-
+        // note if node is not a member of the link list, this code will 
+        // make size incorrect
+        public void delete(DNode<T> node) {
+            if(head == null || node == null) {
+                return;
+            }
+            if(head == node) { // node.prev == null
+                if(head.next != null) {
+                    head.next.prev = null; 
+                }
+                head = head.next;
+            } else if (node.next == null) {
+                node.prev.next = node.next;
+            } else {
+                node.prev.next = node.next;
+                node.next.prev = node.prev;
+            }
+            Size--;
+        }
         public void addToIndex(T data, int index) {
             if(head == null || index <= 0) {
                 addToFront(data);
