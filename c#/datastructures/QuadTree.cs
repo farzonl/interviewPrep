@@ -10,6 +10,7 @@ namespace datastructures
 
     public interface IBoundary {
         bool contains(IPoint p);
+        bool intersects(IBoundary b);
     }
 
     public class Rectangle : IBoundary {
@@ -30,6 +31,25 @@ namespace datastructures
                    p.x < (this.x + this.w)  &&
                    p.y > (this.y - this.h)  &&
                    p.y < (this.y + this.h);
+        }
+
+        public bool intersects(IBoundary b) {
+            if(b is Rectangle) {
+                return intersects( b as Rectangle);
+            }
+            return false;
+        }
+
+        public bool intersects(Rectangle rect) {
+            return intersects(this, rect);
+        }
+
+        // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+        public  static bool intersects(Rectangle rect1, Rectangle rect2) {
+            return (rect1.x < rect2.x + rect2.w &&
+                    rect1.x + rect1.w > rect2.x &&
+                    rect1.y < rect2.y + rect2.h &&
+                    rect1.y + rect1.h > rect2.y);
         }
     }
 
@@ -102,6 +122,31 @@ namespace datastructures
             SW = new QuadTree(swR, this.capacity);
             SE = new QuadTree(seR, this.capacity);
             isSubdivided = true;
+        }
+        public List<IPoint> query(IBoundary range) {
+            List<IPoint> foundPnts = new List<IPoint>();
+            return query(range, foundPnts);
+        }
+        private List<IPoint> query(IBoundary range, List<IPoint> foundPnts) {
+            if(!this.boundary.intersects(range)) {
+                return foundPnts;
+            }
+            // add top quad tree points
+            foreach(IPoint p in points) {
+                if(range.contains(p)) {
+                    foundPnts.Add(p);
+                }
+           }
+            // add child quad tree points
+            //then recursivly add
+            if (this.isSubdivided) {
+                NW.query(range, foundPnts);
+                NE.query(range, foundPnts);
+                SW.query(range, foundPnts);
+                SE.query(range, foundPnts);
+            }
+
+            return foundPnts;
         }
     }
 }

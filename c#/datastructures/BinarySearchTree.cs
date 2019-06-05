@@ -7,7 +7,7 @@ namespace datastructures
         public BSTNode Left {get; set;}
         public BSTNode Right {get; set;}
         public int data {get; private set;} // TODO make this generic with c# equivalent of comparable
-        public int height {get; set;}
+        public int level {get; set;}
         public BSTNode(int data) {
             this.data = data;
         }
@@ -23,7 +23,7 @@ namespace datastructures
             BSTNode newLeaf = new BSTNode(value);
             if(Root == null) {
                 Root = newLeaf;
-                Root.height = 1;
+                Root.level = 1;
                 count = 1;
                 return;
             }
@@ -37,7 +37,7 @@ namespace datastructures
             if (newLeaf.data > curr.data) {
                 if(curr.Right == null) {
                     curr.Right = newLeaf;
-                    curr.Right.height = curr.height + 1;
+                    curr.Right.level = curr.level + 1;
                     return;
                 } else {
                     addHelper(curr.Right, newLeaf);
@@ -45,7 +45,7 @@ namespace datastructures
             } else {
                 if(curr.Left == null) {
                     curr.Left =  newLeaf;
-                    curr.Left.height = curr.height + 1;
+                    curr.Left.level = curr.level + 1;
                     return;
                 } else {
                     addHelper(curr.Left, newLeaf);
@@ -58,7 +58,7 @@ namespace datastructures
             return returnList;
         }
 
-        private void getInorder(BSTNode curr, List<int> arrList) {
+        public static void getInorder(BSTNode curr, List<int> arrList) {
             if(curr == null) {
                 return;
             }
@@ -100,12 +100,7 @@ namespace datastructures
         public int maxDepth() {
             return maxDepth(Root);
         }
-        /*private int max(int a, int b) { // replace with library
-            if (a > b) {
-                return a;
-            }
-            return b;
-        }*/
+
         private int maxDepth(BSTNode curr) {
             if(curr == null) {
                 return 0;
@@ -113,7 +108,7 @@ namespace datastructures
             return 1 + Math.Max(maxDepth(curr.Left), maxDepth(curr.Right));
         }
 
-        public bool isBallanced() {
+        public bool isBalanced() {
             return isBalanced(Root);
         }
 

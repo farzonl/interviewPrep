@@ -37,8 +37,20 @@ namespace problemsets
                 return;
             }
             PopulateInorder(curr.Left, nodesByHeight);
-            nodesByHeight[curr.height - 1].Add(curr);
+            nodesByHeight[curr.level - 1].Add(curr);
             PopulateInorder(curr.Right, nodesByHeight);
         }
+
+        public static bool isBST(BSTNode bst) {
+            List<int> inorderList  = new List<int>();
+            BinarySearchTree.getInorder(bst,inorderList);
+            for(int i = 1;  i < inorderList.Count; i++) {
+                if(inorderList[i-1] > inorderList[i]) {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
+
 }

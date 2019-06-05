@@ -50,7 +50,7 @@ namespace Tests
                 Assert.AreEqual(heights[i].Length, nodesByHeight[i].Count);
                 for(int j = 0; j < heights[i].Length; j++) {
                     Assert.AreEqual(heights[i][j], nodesByHeight[i][j].data);
-                    Assert.AreEqual(i+1, nodesByHeight[i][j].height);
+                    Assert.AreEqual(i+1, nodesByHeight[i][j].level);
                 }
             }
         }
@@ -77,10 +77,51 @@ namespace Tests
                 Assert.AreEqual(heights[i].Length, nodesByHeight[i].Count);
                 for(int j = 0; j < heights[i].Length; j++) {
                     Assert.AreEqual(heights[i][j], nodesByHeight[i][j].data);
-                    Assert.AreEqual(i+1, nodesByHeight[i][j].height);
+                    Assert.AreEqual(i+1, nodesByHeight[i][j].level);
                 }
             }
+        }
 
+        [Test]
+        public void isBalancedTest() {
+            BinarySearchTree bst = new BinarySearchTree();
+            Assert.IsTrue(bst.isBalanced());
+            bst.add(10);
+            Assert.IsTrue(bst.isBalanced());
+            bst.add(20);
+            Assert.IsTrue(bst.isBalanced());
+            bst.add(15);
+            Assert.IsFalse(bst.isBalanced());
+            bst.add(5);
+            Assert.IsTrue(bst.isBalanced());
+        }
+
+        [Test]
+        public void isBST() {
+            BinarySearchTree bst = new BinarySearchTree();
+            int[] addOrder = new int[] { 10, 15, 12, 20, 5, 3, 4, 2, 1, 8, 9 };
+            for(int i = 0; i < addOrder.Length; i++) {
+                bst.add(addOrder[i]);
+            }
+
+            int[] validInorder  = new int[]{ 1,  2, 3, 4, 5, 8, 9, 10, 12, 15, 20};
+            BinarySearchTree bst2 = ch4.createMinimalBST(validInorder);
+
+            BSTNode bst3 = new BSTNode(10);
+            bst3.Right = new BSTNode(9);
+            bst3.Left = new BSTNode(12);
+
+            BSTNode bst4 = new BSTNode(10);
+            bst4.Right = new BSTNode(9);
+            
+            BSTNode bst5 = new BSTNode(10);
+            bst5.Left = new BSTNode(12);
+
+            Assert.IsTrue(ch4.isBST(bst.Root));
+            Assert.IsTrue(ch4.isBST(bst2.Root));
+            Assert.IsFalse(ch4.isBST(bst3));
+            Assert.IsFalse(ch4.isBST(bst4));
+            Assert.IsFalse(ch4.isBST(bst5));
         }
     }
 }
