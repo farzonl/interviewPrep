@@ -3,3 +3,9 @@ extraction:
     index:
       build_command:
         - make -C c++/
+  csharp:
+    index:
+      dotnet:
+        version: 2.2.106
+      build_command:
+        - dotnet test c#/
