@@ -78,14 +78,14 @@ public:
     template< typename T >
     Stack<T>::~Stack() {
         while(this->size > 0) {
-            this->pop();
+            List<T>::pop();
         }
     }
 
     template< typename T >
     T List<T>::peek() {
         if (this->head == nullptr) {
-            throw;
+            throw std::range_error("Datastructure is empty.");
         }
 
         return this->head->data;

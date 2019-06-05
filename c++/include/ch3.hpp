@@ -11,9 +11,9 @@ class minStack : public Stack<int> {
         Stack<int> minStack;
 };
 
-class ch3 {
+/*class ch3 {
     private:
         ch3() = delete;
-};
+};*/
 
 #endif // __CH__3_HPP__
