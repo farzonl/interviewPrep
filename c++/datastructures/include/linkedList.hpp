@@ -3,6 +3,7 @@
 #define __linked__list_HPP__
 
 #include <iostream> 
+#include <stdexcept>
 
 template< typename T >
 struct Node {
