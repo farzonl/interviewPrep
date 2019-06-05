@@ -16,6 +16,7 @@ matrix:
        - make -C c++/
     - language: cpp
       os: linux
+      dist: xenial
       script:
        - make -C c++/
       compiler: gcc
