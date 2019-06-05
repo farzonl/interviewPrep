@@ -33,7 +33,9 @@ matrix:
         - npm test
         - npm run lint
       after_success:
-        bash <(curl -s https://codecov.io/bash)
+        - export CODECOV_TOKEN="59ec33f8-cdb9-4acd-876e-44aaedcc5033"
+        - node node_modules/nyc/bin/nyc.js report --reporter=text-lcov > coverage.lcov
+        - ./node_modules/.bin/codecov
     - language: java
       jdk: oraclejdk8
       before_script:
