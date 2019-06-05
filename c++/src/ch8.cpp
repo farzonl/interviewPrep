@@ -22,9 +22,9 @@ int recurse(int sum, int a, int b) {
 
 std::vector<std::vector<char>> ch8::subset(std::vector<char> set) {
     std::vector<std::vector<char>> retVec;
-    for(int i = 0; i < set.size();i++) {
+    for(size_t i = 0; i < set.size();i++) {
         std::vector<char> curr;
-        for(int j = i; j < set.size();j++) {
+        for(size_t j = i; j < set.size();j++) {
             curr.push_back(set[j]);
             std::vector<char> copyVec(curr);
             retVec.push_back(copyVec);

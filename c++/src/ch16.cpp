@@ -6,6 +6,8 @@
 #include <iterator>
 #include <locale>
 #include <stdio.h>
+#include <cstring>      // memset
+#include <string.h>     // strtok
 
 int Operations::multiply(int a, int b) {
     int total = 0;
@@ -37,11 +39,11 @@ int Operations::divide(int a, int b) {
 }
 
 int Operations::subtract(int a, int b) {
-    auto negate = [](int a) {
-        int sign = a > 0 ? 1 : -1;
+    auto negate = [](int num) {
+        int sign = num > 0 ? 1 : -1;
         int negation = 0;
-        while( a != 0 ) {
-            a += sign;
+        while( num != 0 ) {
+            num += sign;
             negation += sign;
         }
         return negation;
@@ -54,14 +56,14 @@ TicTacToeBoard::TicTacToeBoard() {
 }
 
 void TicTacToeBoard::place(int i, int j, TTPIECE p) {
-    this->board[i][j] = (int) p;
+    this->board[i][j] = static_cast<int>(p);
 }
 
 TTPIECE TicTacToeBoard::get(int i , int j) {
     if(i < 0 || j < 0 || i >= 3 || j >= 3) {
         return TTPIECE::EMPTY;
     }
-    return (TTPIECE) this->board[i][j];
+    return static_cast<TTPIECE>(this->board[i][j]);
 }
 
 Vec2::Vec2(double x1, double y1) : x(x1), y(y1) {
@@ -75,7 +77,7 @@ float Vec2::cross(const Vec2 &a, const Vec2 &b){ // det product
     return a.x * b.y - a.y * b.x;
 }
 
-Line::Line(const Vec2 &a, const Vec2 &b): a(a), b(b) { 
+Line::Line(const Vec2 &p1, const Vec2 &p2): a(p1), b(p2) { 
     // y-y1 = m(x-x1) -> y = mx + mx1+y1
     // a1x + b1y = c1 (eqn1) y = (-a1x + c1) / b1 -> y = -a1/b1(x) + c1/b1 (slope = -a1/b1) (y-intercept = c1/b1)
     // a2x + b2y = c2 (eqn2)
@@ -89,9 +91,9 @@ Line::Line(const Vec2 &a, const Vec2 &b): a(a), b(b) {
 
 
 bool Line::isIntersected(Line &l, Vec2& out) {    
-    Vec2 a(this->A,l.A);
-    Vec2 b(this->B,l.B);
-    double determinant = a.cross(b);
+    Vec2 aa(this->A,l.A);
+    Vec2 bb(this->B,l.B);
+    double determinant = aa.cross(bb);
 
     if (determinant == 0) {
         return false;
@@ -105,7 +107,7 @@ bool Line::isIntersected(Line &l, Vec2& out) {
 std::string toLowerCase(std::string &word) {
     std::locale loc;
     std::stringstream str_stream;
-    for(int i = 0; i < word.length();i++) {
+    for(size_t i = 0; i < word.length();i++) {
         str_stream << std::tolower(word[i], loc);
     }
     return str_stream.str();
@@ -124,7 +126,7 @@ wordFreq::wordFreq(std::string book) {
      std::vector<std::string> words = split(book);
      std::map<std::string,int>::iterator it;
      
-     for(int i = 0; i < words.size(); i++) {
+     for(size_t i = 0; i < words.size(); i++) {
          std::string currWord = toLowerCase(words[i]);
           it = freq.find(currWord);
           if (it != freq.end()) {
@@ -171,11 +173,11 @@ void ch16::swapSub(int &a, int &b) {
 }
 
 int ch16::maxNoCompare(int a, int b) { //TODO how to solve overflow?
-    auto flip = [](int a) {
-        return a^1;
+    auto flip = [](int num) {
+        return num^1;
     };
-    auto sign = [](int a) {
-        return ((a) >> 31) &1; // right shift all positive bits to 0
+    auto sign = [](int num) {
+        return ((num) >> 31) &1; // right shift all positive bits to 0
     };
 
     int s = sign(a-b); // get the sign after subtraction
@@ -205,23 +207,23 @@ std::pair<int,int> ch16::smallestDiffBrute(int *a, int aLen, int *b, int bLen) {
 bool ch16::isWinningBoard(TicTacToeBoard &tb) {
     for(int i = 0; i < 3; i++) {
         for(int j = 0; j < 3; j++) {
-            int curr = (int) tb.get(i,j);
-            if ( ( curr & (int) tb.get(i-1,j-1) ) && ( curr & (int) tb.get(i+1,j+1) ) ) {
+            int curr = static_cast<int>(tb.get(i,j));
+            if ( ( curr & static_cast<int>(tb.get(i-1,j-1)) ) && ( curr & static_cast<int>(tb.get(i+1,j+1)) ) ) {
                 //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
                 //std::cout << "case 1" << std::endl;
                 return true;
             }
-            if ( ( curr & (int) tb.get(i+1,j-1) ) && ( curr & (int) tb.get(i-1,j+1) ) ) {
+            if ( ( curr & static_cast<int>(tb.get(i+1,j-1)) ) && ( curr & static_cast<int>(tb.get(i-1,j+1)) ) ) {
                 //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
                 //std::cout << "case 2" << std::endl;
                 return true;
             }
-            if( ( curr & (int) tb.get(i-1,j) ) && ( curr & (int) tb.get(i+1,j) ) ) {
+            if( ( curr & static_cast<int>(tb.get(i-1,j)) ) && ( curr & static_cast<int>(tb.get(i+1,j)) ) ) {
                 //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
                 //std::cout << "case 3" << std::endl;
                 return true;
             }
-            if( ( curr & (int) tb.get(i,j-1) ) && ( curr & (int) tb.get(i,j+1) ) ) {
+            if( ( curr & static_cast<int>(tb.get(i,j-1)) ) && ( curr & static_cast<int>(tb.get(i,j+1)) ) ) {
                 //std::cout << "(i: " << i << ", j: " << j << " )" << std::endl;
                 //std::cout << "case 4" << std::endl;
                 return true;
@@ -241,7 +243,7 @@ std::pair<int, int> ch16::smallestDiffSort(int *a, int aLen, int *b, int bLen) {
     //std::cout << "" << std::endl;
     //print(bVec);
 
-    int i = 0, j = 0;
+    size_t i = 0, j = 0;
     int aVal = aVec[0];
     int bVal = bVec[0];
     int min = std::numeric_limits<int>::max();

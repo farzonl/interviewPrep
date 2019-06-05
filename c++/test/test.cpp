@@ -149,7 +149,7 @@ TEST_CASE( "test  2.3" ) {
     char arr[] = {'a','b','d','e','f'};
     ch2::deleteMiddleNodeUsingSize(&q1);
     Node<char>* curr = q1.getHead();
-    for(int i = 0; i < sizeof(arr); i++) {
+    for(size_t i = 0; i < sizeof(arr); i++) {
         REQUIRE(curr->data == arr[i]);
         curr = curr->Next;
     }
@@ -272,9 +272,9 @@ TEST_CASE("8.4 power set") {
 
     std::vector<std::vector<char>>  subsets = ch8::subset(vec);
     REQUIRE(sets.size() == subsets.size());
-    for(int i = 0; i < sets.size(); i++) {
+    for(size_t i = 0; i < sets.size(); i++) {
         REQUIRE(sets[i].size() == subsets[i].size());
-        for(int j = 0; j < sets[i].size(); j++) {
+        for(size_t j = 0; j < sets[i].size(); j++) {
              REQUIRE(sets[i][j] == subsets[i][j]);
         }
     }

@@ -1,12 +1,14 @@
 #include "ch1.hpp"
 #include <climits>
+#include <cstring>      // memset
 #include <sstream>      // std::stringstream
+#include <algorithm>    // std::sort
 
 bool ch1::isUnique(std::string str) {
     bool table[SCHAR_MAX];
     memset(table, 0, sizeof(table));
-    for(int i = 0; i < str.size(); i++) {
-        int curr = (int)str.at(i);
+    for(size_t i = 0; i < str.size(); i++) {
+        int curr = static_cast<int>(str.at(i));
         if(table[curr] == false) {
             table[curr] = true;
         } else {
@@ -19,7 +21,7 @@ bool ch1::isUnique(std::string str) {
 // if we can't use aditional data structures then sort the string
 bool ch1::isUniqueSort(std::string str) {
     std::sort(str.begin(), str.end());
-    for(int i = 1; i < str.size(); i++) {
+    for(size_t i = 1; i < str.size(); i++) {
         if(str.at(i) == str.at(i-1)) {
             return false;
         }
@@ -34,18 +36,18 @@ bool ch1::isPermTable(std::string str1,std::string str2) {
 
     int table[SCHAR_MAX];
     memset(table, 0, sizeof(table));
-    for(int i = 0; i < str1.size(); i++) {
-        int curr = (int)str1.at(i);
+    for(size_t i = 0; i < str1.size(); i++) {
+        int curr = static_cast<int>(str1.at(i));
         table[curr]++;
     }
 
-    for(int i = 0; i < str2.size(); i++) {
-        int curr = (int)str2.at(i);
+    for(size_t i = 0; i < str2.size(); i++) {
+        int curr = static_cast<int>(str2.at(i));
         table[curr]--;
     }
 
-    for(int i = 0; i < str1.size(); i++) {
-        int curr = (int)str1.at(i);
+    for(size_t i = 0; i < str1.size(); i++) {
+        int curr = static_cast<int>(str1.at(i));
         if(table[curr] != 0) {
             return false;
         }
@@ -57,16 +59,16 @@ bool ch1::isPermSearch(std::string str1,std::string str2) {
     if(str1.size() != str2.size()) {
         return false;
     }
-    for(int i = 0; i < str1.size(); i++) {
-         for(int j = 0; j < str2.size(); j++) {
+    for(size_t i = 0; i < str1.size(); i++) {
+         for(size_t j = 0; j < str2.size(); j++) {
              if( str1[i] != 0 && str1[i] == str2[j]) {
-                 str1[i] = (char)0;
-                 str2[j] = (char)0;
+                 str1[i] = static_cast<char>(0);
+                 str2[j] = static_cast<char>(0);
              }
          }
     }
     
-    for(int i = 0; i < str1.size(); i++) {
+    for(size_t i = 0; i < str1.size(); i++) {
         if(str1[i] != 0) {
             return false;
         }
@@ -86,15 +88,15 @@ bool ch1::isPermSort(std::string str1,std::string str2) {
 bool ch1::isPalindromePerm(std::string str) {
     int table[SCHAR_MAX];
     memset(table, 0, sizeof(table));
-    for(int i = 0; i < str.size(); i++) {
-        int curr = (int)str.at(i);
+    for(size_t i = 0; i < str.size(); i++) {
+        int curr = static_cast<int>(str.at(i));
         table[curr]++;
     }
     if(str.size() & 1) { // odd
-       int twoCount = 0;
+       size_t twoCount = 0;
        int oneCount = 0;
-       for(int i = 0; i < str.size(); i++) {
-           int curr = (int)str.at(i);
+       for(size_t i = 0; i < str.size(); i++) {
+           int curr = static_cast<int>(str.at(i));
            if(table[curr] == 2) {
                twoCount++;
            } else if(table[curr] == 1) {
@@ -110,8 +112,8 @@ bool ch1::isPalindromePerm(std::string str) {
            }
         }
     } else {
-       for(int i = 0; i < str.size(); i++) {
-           int curr = (int)str.at(i);
+       for(size_t i = 0; i < str.size(); i++) {
+           int curr = static_cast<int>(str.at(i));
            if(table[curr] != 2) {
                return false;
            }
@@ -146,7 +148,7 @@ bool ch1::isOneAway(std::string str1, std::string str2) {
 std::string ch1::compressString(std::string str) {
     int charCount = 1;
     std::stringstream compressedStream;
-    for(int i = 1; i < str.size(); i++) {
+    for(size_t i = 1; i < str.size(); i++) {
         if(str[i-1] == str[i]) {
             charCount++;
         }

@@ -1,6 +1,6 @@
 
 #_____________STATIC STUFF__________________________________________
-OPTIONS := -std=c++11 -Wall
+OPTIONS := -std=c++11 -Wall -Wextra  -Wstrict-aliasing -pedantic -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wstrict-overflow=5 -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option 
 INCPATH := -I test/include -I datastructures/include -I include
 FILES := test/test.o $(shell echo src/*.cpp  | sed -e 's/cpp/o/g')
 UNAME := $(shell uname)
@@ -35,6 +35,6 @@ build-debug : CFLAGS += -g -DDEBUG
 build-debug : $(EXE)
 
 clean :
-	rm -rf *.o* $(EXE)*
+	rm -rf *.o* src/*.o* $(EXE)*
 
 rebuild : clean build-release

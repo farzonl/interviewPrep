@@ -36,6 +36,7 @@ namespace Tests
 
             Assert.AreEqual(expectedMat,resultMat);
         }
+
         [Test]
         public void flipMatOnYaxisTest() {
             int [][] mat = new int[][]{new int[]{1, 0, 1, 1}, 

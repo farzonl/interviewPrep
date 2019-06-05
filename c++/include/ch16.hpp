@@ -33,7 +33,7 @@ class TicTacToeBoard {
 
 class Line {
     public:
-        Line(const Vec2 &a, const Vec2 &b);
+        Line(const Vec2 &p1, const Vec2 &p2);
         bool isIntersected(Line &l, Vec2& out);
         double slope, yIntercept;
         Vec2 a;
