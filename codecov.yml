@@ -1,2 +1,4 @@
 ignore:
-    - c++/test/include/catch2/
+  - "test"
+  - "catch2"
+  - "catch.hpp"
