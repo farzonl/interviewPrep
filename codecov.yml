@@ -1,0 +1,2 @@
+ignore:
+    - c++/test/include/catch2/
