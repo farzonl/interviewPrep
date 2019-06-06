@@ -19,6 +19,10 @@ matrix:
       dist: xenial
       script:
        - make -C c++/
+      after_success:
+       - export CODECOV_TOKEN="59ec33f8-cdb9-4acd-876e-44aaedcc5033"
+       - gcov c++/src/*.cpp
+       - bash <(curl -s https://codecov.io/bash)
       compiler: gcc
     - language: node_js
       node_js:

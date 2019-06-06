@@ -2,3 +2,7 @@ Darwin_*
 Linux_*
 Windows_*
 *.o
+*.gcov
+*.gcda
+*.gcno
+
