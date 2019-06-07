@@ -2,7 +2,7 @@
 #_____________STATIC STUFF__________________________________________
 OPTIONS := -coverage -std=c++11 -Wall -Wextra  -Wstrict-aliasing -pedantic -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option 
 INCPATH := -I test/include -I datastructures/include -I include
-FILES := test/test.o $(shell echo src/*.cpp  | sed -e 's/cpp/o/g')
+FILES := $(shell echo src/*.cpp  | sed -e 's/cpp/o/g') test/test.o
 UNAME := $(shell uname)
 EXE   := $(UNAME)_test
 #_____________STATIC STUFF__________________________________________
@@ -22,7 +22,11 @@ run-debug : build-debug
 run-valgrind : build-debug
 	valgrind --leak-check=yes --show-reachable=yes --tool=memcheck ./EXE
 
+initTest :
+	./test/include/catch2/uzCatch.sh
+
 build-release : CFLAGS += -O3
+build-release : initTest
 build-release : $(EXE)
 
 %.o: %.cpp
