@@ -23,7 +23,7 @@ run-valgrind : build-debug
 	valgrind --leak-check=yes --show-reachable=yes --tool=memcheck ./EXE
 
 initTest :
-	./test/include/catch2/uzCatch.sh
+	bash test/include/catch2/uzCatch.sh
 
 build-release : CFLAGS += -O3
 build-release : initTest
