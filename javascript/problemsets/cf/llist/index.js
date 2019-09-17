@@ -5,12 +5,12 @@ function ListNode(x) {
 }
 
 function createListFromArr(arr) {
-    if(arr.length == 0) {
+    if (arr.length == 0) {
         return null;
     }
     let l = new ListNode(arr[0]);
     let curr = l;
-    for(let i = 1; i < arr.length; i++) {
+    for (let i = 1; i < arr.length; i++) {
         curr.next = new ListNode(arr[i]);
         curr = curr.next;
     }
@@ -20,7 +20,7 @@ function createListFromArr(arr) {
 function creatArrFromList(list) {
     let curr = list;
     let arr = [];
-    while(curr != null) {
+    while (curr != null) {
         arr.push(curr.value);
         curr = curr.next;
     }
@@ -28,50 +28,50 @@ function creatArrFromList(list) {
 }
 
 function removeKFromList(l, k) {
-    if(l==null) {
+    if (l==null) {
         return l;
     }
-    if(l.value == k) {
+    if (l.value == k) {
         l = l.next;
     }
     let curr = l;
-    while(curr != null && curr.next != null) {
+    while (curr != null && curr.next != null) {
         if (curr.next.value == k) {
             curr.next = curr.next.next;
         } else {
-            curr = curr.next
+            curr = curr.next;
         }
     }
     if (curr != null && curr.value == k) {
         l = l.next;
     }
-    
+
     return l;
 }
 
 function isListPalindrome(list) {
-    if(list == null) {
+    if (list == null) {
         return true;
     }
-    if(list.next == null) {
+    if (list.next == null) {
         return true;
     }
     let curr = list;
     let arr = [];
-    while(curr != null) {
+    while (curr != null) {
         arr.push(curr.value);
         curr = curr.next;
     }
     curr = list;
-    while(curr != null) {
+    while (curr != null) {
         let arrCurr = arr.pop();
-        if(curr.value != arrCurr) {
-            return false
+        if (curr.value != arrCurr) {
+            return false;
         }
         curr = curr.next;
     }
     return true;
 }
 
-export {  isListPalindrome, createListFromArr, 
-          creatArrFromList, removeKFromList }
+export { isListPalindrome, createListFromArr,
+          creatArrFromList, removeKFromList };
