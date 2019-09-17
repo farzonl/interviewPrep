@@ -56,40 +56,19 @@ function isListPalindrome(list) {
     if(list.next == null) {
         return true;
     }
-    let length = 0;
     let curr = list;
+    let arr = [];
     while(curr != null) {
+        arr.push(curr.value);
         curr = curr.next;
-        length++;
-    }
-    let midpoint = Math.floor(length/2);
-    if(length % 2 == 0) {
-        midpoint--;
     }
     curr = list;
-    let count = 0;
-    let arr = []
-
-    while(count < midpoint) {
-        arr.unshift(curr.value);
-        curr = curr.next;
-        count++;
-    }
-    if(length % 2 == 0) {
-        arr.unshift(curr.next.value);
-    }
-    curr = curr.next;
-    count = 0;
-    //console.log(arr);
-    //console.log(`length is: ${length}`);
-    //console.log(`midpoint is: ${midpoint}`);
-    //console.log(`current node: ${curr.value}`);
     while(curr != null) {
-        if(curr.value != arr[count]) {
+        let arrCurr = arr.pop();
+        if(curr.value != arrCurr) {
             return false
         }
         curr = curr.next;
-        count++;
     }
     return true;
 }
