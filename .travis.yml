@@ -41,6 +41,7 @@ matrix:
         - node node_modules/nyc/bin/nyc.js report --reporter=text-lcov > coverage.lcov
         - ./node_modules/.bin/codecov
     - language: java
+      dist: trusty
       jdk: oraclejdk8
       before_script:
         - cd java

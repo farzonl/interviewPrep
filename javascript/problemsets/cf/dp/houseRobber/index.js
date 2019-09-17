@@ -1,4 +1,4 @@
-export function RobHouse(arr) {
+export function robHouse(arr) {
     let sumArr = [];
     sumArr.length = arr.length;
     sumArr[0] = arr[0];
