@@ -73,5 +73,64 @@ function isListPalindrome(list) {
     return true;
 }
 
+function getPlaceValue(n) {
+    let intN = Math.ceil(n);
+    return 10**(intN.toString().length-1);
+}
+
+function createListFromArrReverse(arr) {
+    if (arr.length == 0) {
+        return null;
+    }
+    let l = new ListNode(arr[arr.length-1]);
+    let curr = l;
+    for (let i = arr.length-2; i >= 0; i--) {
+        curr.next = new ListNode(arr[i]);
+        curr = curr.next;
+    }
+    return l;
+}
+
+function addTwoHugeNumbers(a, b) {
+    let curr = a;
+    let arrA = [];
+    while (curr != null) {
+        arrA.unshift(curr.value);
+        curr = curr.next;
+    }
+
+    curr = b;
+    let arrB = [];
+    while (curr != null) {
+        arrB.unshift(curr.value);
+        curr = curr.next;
+    }
+    let len = Math.min(arrA.length, arrB.length);
+    let finalArr = [];
+    finalArr.length = Math.max(arrA.length, arrB.length);
+    finalArr.fill(0);
+    let i = 0;
+    for (; i < len; i++) {
+        let maxPlaceValue = Math.max(getPlaceValue(arrA[i]),
+                                     getPlaceValue(arrB[i]));
+        let nextPlaceValue = maxPlaceValue*10;
+        let addAB = finalArr[i] + arrA[i] + arrB[i];
+        if (addAB >= nextPlaceValue) {
+            finalArr[i] = addAB - nextPlaceValue;
+            finalArr[i+1] += 1;
+        } else {
+            finalArr[i] = addAB;
+        }
+    }
+    let largestArr = arrA.length > arrB.length ? arrA : arrB;
+    for (;i < finalArr.length; i++) {
+        finalArr[i] = largestArr[i];
+    }
+
+    return createListFromArrReverse(finalArr);
+}
+
+
 export { isListPalindrome, createListFromArr,
-          creatArrFromList, removeKFromList };
+          creatArrFromList, removeKFromList,
+          addTwoHugeNumbers };
