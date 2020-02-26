@@ -18,7 +18,7 @@ matrix:
       os: linux
       dist: xenial
       script:
-       - make -C c++/
+       - make -C c++/ run-coverage
       after_success:
        - export CODECOV_TOKEN="59ec33f8-cdb9-4acd-876e-44aaedcc5033"
        - gcov c++/src/*.cpp
