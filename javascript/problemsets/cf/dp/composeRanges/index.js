@@ -1,7 +1,8 @@
 function composeRanges(nums) {
     let tempArr = [nums[0]];
     let rangeArr = [];
-    for (let i = 1; i <= nums.length; i++) {
+    let i = 1;
+    for (i = 1; i < nums.length; i++) {
         if ( nums[i-1] == nums[i]-1) {
             tempArr.push(nums[i]);
         } else {
@@ -9,8 +10,13 @@ function composeRanges(nums) {
             tempArr = [nums[i]];
         }
     }
+
+    if (i == nums.length) {
+        rangeArr.push(tempArr.slice());
+    }
+
     let rangeArrStr = [];
-    for (let i = 0; i <rangeArr.length; i++) {
+    for (i = 0; i <rangeArr.length; i++) {
         let curr = rangeArr[i];
         let str = '';
         if (curr.length == 1) {
