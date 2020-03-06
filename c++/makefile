@@ -1,6 +1,6 @@
 
 #_____________STATIC STUFF__________________________________________
-OPTIONS := -coverage -std=c++11 -Wall -Wextra  -Wstrict-aliasing -pedantic -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option 
+OPTIONS := -std=c++11 -Wall -Wextra  -Wstrict-aliasing -pedantic -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option
 INCPATH := -I test/include -I datastructures/include -I include
 FILES := $(shell echo src/*.cpp  | sed -e 's/cpp/o/g') test/test.o
 UNAME := $(shell uname)
@@ -11,9 +11,13 @@ CC := clang++
 else
 CC := g++
 endif
-CFLAGS := $(INCPATH) $(LIBPATH) $(OPTIONS)
+CFLAGS := $(INCPATH) $(OPTIONS)
 
 run : build-release
+	./$(EXE)
+
+run-coverage : CFLAGS += -coverage
+run-coverage : build-release
 	./$(EXE)
 
 run-debug : build-debug
@@ -39,6 +43,6 @@ build-debug : CFLAGS += -g -DDEBUG
 build-debug : $(EXE)
 
 clean :
-	rm -rf *.o* src/*.o* $(EXE)* *.gcov src/*.gcov  src/*.gcda src/*.gcno
+	rm -rf *.o* src/*.o* $(EXE)* *.gcov src/*.gcov  src/*.gcda src/*.gcno test/*.gcov  test/*.gcda test/*.gcno
 
 rebuild : clean build-release
