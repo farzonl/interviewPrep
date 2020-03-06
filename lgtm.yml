@@ -9,3 +9,7 @@ extraction:
         version: 2.2.106
       build_command:
         - dotnet test c#/
+  go:
+    index:
+      build_command:
+        - go build -i go/*/*.go
