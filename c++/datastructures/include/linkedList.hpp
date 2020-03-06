@@ -28,6 +28,7 @@ public:
     T peek();
     void print(); 
     int Size() { return size;}
+    bool empty() { return size == 0; }
 };
 
 template< typename T >

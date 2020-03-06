@@ -2,7 +2,7 @@ function composeRanges(nums) {
     let tempArr = [nums[0]];
     let rangeArr = [];
     let i = 1;
-    for (i = 1; i < nums.length; i++) {
+    for (;i < nums.length; i++) {
         if ( nums[i-1] == nums[i]-1) {
             tempArr.push(nums[i]);
         } else {

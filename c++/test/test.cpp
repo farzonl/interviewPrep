@@ -2,6 +2,7 @@
 
 #include <catch2/catch.hpp>
 #include "linkedList.hpp"
+#include "graph.hpp"
 #include "ch1.hpp"
 #include "ch2.hpp"
 #include "ch3.hpp"
@@ -9,6 +10,37 @@
 #include "ch8.hpp"
 #include "ch16.hpp"
 
+TEST_CASE( "dfs & bfs" ) {
+    std::vector<char> ans1 = {'A', 'C', 'B', 'D'};
+    std::vector<char> ans2 = {'A', 'B', 'C', 'D'};
+
+    GNode<char> *A = new GNode<char>('A');
+    GNode<char> *B = new GNode<char>('B');
+    GNode<char> *C = new GNode<char>('C');
+    GNode<char> *D = new GNode<char>('D');
+    GNode<char> *F = new GNode<char>('F');
+
+    A->insert(B);
+    A->insert(C);
+    B->insert(D);
+    D->insert(C);
+
+   // A -> B -> D
+   //  -> C <-/
+  std::vector<char> dfsorder = GSearch::dfs(A);
+  std::vector<char> bfsorder = GSearch::bfs(A);
+
+  for(size_t i = 0; i < ans1.size(); i++) {
+      REQUIRE(dfsorder[i] == ans1[i]);
+  }
+  for(size_t i = 0; i < ans2.size(); i++) {
+      REQUIRE(bfsorder[i] == ans2[i]);
+  }
+  delete A;
+  delete B;
+  delete C;
+  delete D;
+}
 
 TEST_CASE( "test stack template int push and pop" ) {
     Stack<int> s(5);
