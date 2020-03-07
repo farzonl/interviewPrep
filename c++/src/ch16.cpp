@@ -262,3 +262,37 @@ std::pair<int, int> ch16::smallestDiffSort(int *a, int aLen, int *b, int bLen) {
     }
     return std::make_pair(aVal,bVal);
 }
+// 
+// -8  -5
+//     3  1  5    
+int ch16::contigSeqSum(std::vector<int> &arr) {
+    int currSum = 0;
+    int maxSum = 0;
+    for(size_t i = 0; i < arr.size(); i++) {
+        currSum += arr[i];
+        maxSum = std::max(maxSum, currSum);
+        currSum = std::max(currSum,0);
+    }
+    return maxSum;
+}
+
+std::pair<int, int> ch16::contigSeqIndicies(std::vector<int> &arr) {
+    int currSum = 0;
+    int maxSum = 0;
+    int start = 0;
+    int end = arr.size()-1;
+    for(size_t i = 0; i < arr.size(); i++) {
+        if (currSum == 0) {
+            start = i;
+        } 
+        currSum += arr[i];
+        if(currSum > maxSum) {
+            end = i;
+            maxSum = currSum;
+        }
+        if (currSum < 0) {
+            currSum = 0;
+        } 
+    }
+    return std::make_pair(start,end);
+}

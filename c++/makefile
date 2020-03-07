@@ -43,6 +43,6 @@ build-debug : CFLAGS += -g -DDEBUG
 build-debug : $(EXE)
 
 clean :
-	rm -rf *.o* src/*.o* $(EXE)* *.gcov src/*.gcov  src/*.gcda src/*.gcno test/*.gcov  test/*.gcda test/*.gcno
+	rm -rf *.o* src/*.o* $(EXE)* *.gcov src/*.gcov  src/*.gcda src/*.gcno test/*.o test/*.gcov  test/*.gcda test/*.gcno
 
 rebuild : clean build-release

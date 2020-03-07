@@ -2,6 +2,7 @@
 #define __CH__16_HPP__
 
 #include <map>
+#include <vector>
 
 class wordFreq {
     public:
@@ -56,6 +57,8 @@ class ch16 {
         static std::pair<int,int> smallestDiffBrute(int *a, int aLen, int *b, int bLen);
         static std::pair<int,int> smallestDiffSort(int *a, int aLen, int *b, int bLen);
         static bool isWinningBoard(TicTacToeBoard &tb);
+        static int contigSeqSum(std::vector<int> &arr);
+        static std::pair<int, int> contigSeqIndicies(std::vector<int> &arr);
     private:
         ch16() = delete;
 };

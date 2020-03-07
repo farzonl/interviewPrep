@@ -473,6 +473,14 @@ TEST_CASE("16.7 max no compare") {
     REQUIRE(4 == ch16::maxNoCompare(-5,4));
 }
 
+TEST_CASE("16.7 6th edition ") {
+    std::vector<int> v{-8, 3, -2, 4, -10};
+    REQUIRE(5 == ch16::contigSeqSum(v));
+    std::pair<int, int> p = ch16::contigSeqIndicies(v);
+    REQUIRE(1 == p.first);
+    REQUIRE(3 == p.second);
+}
+
 TEST_CASE("16.9 subtract with add") {
     REQUIRE( 6 == Operations::subtract(11,5));
     REQUIRE(-6 == Operations::subtract(-1,5));
