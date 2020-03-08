@@ -1,8 +1,8 @@
 
 #_____________STATIC STUFF__________________________________________
 OPTIONS := -std=c++11 -Wall -Wextra  -Wstrict-aliasing -pedantic -Werror -Wunreachable-code -Wcast-align -Wcast-qual -Wctor-dtor-privacy -Wdisabled-optimization -Wformat=2 -Winit-self -Wmissing-include-dirs -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wshadow -Wsign-promo -Wswitch-default -Wundef -Wno-unused -Wno-variadic-macros -Wno-parentheses -fdiagnostics-show-option
-INCPATH := -I test/include -I datastructures/include -I include
-FILES := $(shell echo src/*.cpp  | sed -e 's/cpp/o/g') test/test.o
+INCPATH := -I test/include -I include/datastructures -I include/chapters
+FILES := $(shell echo src/*/*.cpp  | sed -e 's/cpp/o/g') test/test.o
 UNAME := $(shell uname)
 EXE   := $(UNAME)_test
 #_____________STATIC STUFF__________________________________________

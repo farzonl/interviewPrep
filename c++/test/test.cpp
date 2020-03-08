@@ -2,6 +2,7 @@
 
 #include <catch2/catch.hpp>
 #include "linkedList.hpp"
+#include "tree.h"
 #include "graph.hpp"
 #include "ch1.hpp"
 #include "ch2.hpp"
@@ -10,7 +11,50 @@
 #include "ch8.hpp"
 #include "ch16.hpp"
 
+TEST_CASE("mathworks bst odd even level cmp") {
+    TreeNode* bst = new TreeNode(10);
+    std::vector<int> addOrder({ 15, 12, 20, 5, 3, 4, 2, 1, 8, 9 });
+//             /--------10--------|
+//       /----5----\         /----15---- |
+//    /--3--\   /--8--\  /--12--\     /--20--|
+// /--2--\   4        9
+// 1
+// even = 10 + 3 + 8 + 12 + 20 + 1 = 54
+// odd = 5 + 15 + 2 + 4 + 9 = 35
+    for(size_t i = 0; i < addOrder.size(); i++) {
+        bst->add(addOrder[i]);
+    }
+    int even = 0;
+    int odd = 0;
+    bst->sumCmp(even,odd);
+    REQUIRE(even == 54);
+    REQUIRE(odd == 35);
+    delete bst;
+}
 
+TEST_CASE("remove from a bst") {
+    TreeNode* bst = new TreeNode(10);
+    std::vector<int> addOrder({ 15, 12, 20, 5, 3, 4, 2, 1, 8, 9 });
+    for(size_t i = 0; i < addOrder.size(); i++) {
+        bst->add(addOrder[i]);
+    }
+    bst->preorder();
+    bst->remove(bst, 10,false); // should make 9 the new root
+    bst->preorder();
+    REQUIRE(bst->m_data == 9);
+    bst->remove(9); // should make 12 the new root
+    bst->preorder();
+    REQUIRE(bst->m_data == 12);
+    //TODO fix this bug
+    //bst->remove(2); // remove with just a left child
+    //bst->preorder();
+    bst->remove(1); // remove a leaf
+    bst->preorder();
+    bst->remove(3); // remove with just a right child
+    bst->preorder();
+    delete bst;
+
+}
 TEST_CASE( "dfs & bfs" ) {
     std::vector<char> ans1 = {'A', 'C', 'B', 'D'};
     std::vector<char> ans2 = {'A', 'B', 'C', 'D'};
