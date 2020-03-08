@@ -10,6 +10,7 @@
 #include "ch8.hpp"
 #include "ch16.hpp"
 
+
 TEST_CASE( "dfs & bfs" ) {
     std::vector<char> ans1 = {'A', 'C', 'B', 'D'};
     std::vector<char> ans2 = {'A', 'B', 'C', 'D'};
@@ -264,7 +265,65 @@ TEST_CASE( "test  3.2" ) {
     ms.pop();
     REQUIRE(ms.min() == 5);
     REQUIRE(ms.peek() == 5);
-} 
+}
+
+TEST_CASE("3.3 Stack height limit") {
+    SetOfStacks<int> sos(3);
+    sos.push(5); // new stack 0
+    sos.push(6);
+    sos.push(7);
+    sos.push(4);// new stack 1
+    sos.push(8);
+    sos.push(3);
+    sos.push(1); // new stack 2
+    sos.push(8); 
+    sos.push(9); 
+    REQUIRE(sos.peek() == 9);
+    sos.pop();
+    REQUIRE(sos.peek() == 8);
+    sos.pop();
+    REQUIRE(sos.peek() == 1);
+    sos.pop();
+    REQUIRE(sos.peek() == 3);
+    sos.pop();
+    REQUIRE(sos.peek() == 8);
+    sos.pop();
+    REQUIRE(sos.peek() == 4);
+    sos.pop();
+    REQUIRE(sos.peek() == 7);
+    sos.pop();
+    REQUIRE(sos.peek() == 6);
+    sos.pop();
+    REQUIRE(sos.peek() == 5);
+    sos.pop();
+
+    sos.push(5); // new stack 0
+    sos.push(6);
+    sos.push(7);
+    sos.push(4);// new stack 1
+    sos.push(8);
+    sos.push(3);
+    sos.push(1); // new stack 2
+    sos.push(8); 
+    sos.push(9); 
+
+    sos.popAt(2);
+    REQUIRE(sos.peek() == 8);
+    sos.popAt(1);
+    REQUIRE(sos.peek() == 8);
+    sos.pop();
+    REQUIRE(sos.peek() == 1);
+    sos.popAt(0);
+    sos.popAt(1);
+    REQUIRE(sos.peek() == 1);
+    sos.popAt(2);
+    REQUIRE(sos.peek() == 4);
+    sos.popAt(1);
+    REQUIRE(sos.peek() == 6);
+    sos.pop();
+    REQUIRE(sos.peek() == 5);
+    sos.popAt(0);
+}
 
 TEST_CASE("5.1 insertion") {
     REQUIRE(1100  == ch5::insertion(1024, 19, 2, 6));
