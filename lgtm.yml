@@ -13,3 +13,8 @@ extraction:
     index:
       build_command:
         - go build -i go/*/*.go
+  python:
+    index:
+      build_command:
+        - cd python/interviewQs
+        - python -m unittest tests
